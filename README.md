@@ -19,14 +19,16 @@ This container is recommended for development use, to mirror or mimic developmen
 There is enviroment file named .env in the repo to define which version of Apache, mysql, nginx and php to build
 ```
 ##This file for setup version of Middleware - please use only the prodived value.
+##Either apache or nginx are installed, the other need to be NULL
 #mysql (value to add: mysql55, mysql56, mysql57)
 mysql=mysql57
-#apache
+#apache (value to add: httpd24)
 apache=httpd24
-#nginx
-nginx=nginx
+#nginx (value to add: nginx)
+nginx=
 #php (value to add: php56, php70, php71, php72)
-php=php71
+php=php72
+
 
 ```
 Navigate to directory containing docker file. If downloading from Docker Hub, move on to "Create Container" section.

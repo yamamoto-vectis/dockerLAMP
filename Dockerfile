@@ -15,7 +15,10 @@ ADD 10-php.conf /tmp/10-php.conf
 ADD php.conf /tmp/php.conf
 ADD create-env.sh /tmp/create-env.sh
 ADD start-servers.sh /usr/sbin/start-servers
-
+ADD php72 /tmp/php72
+ADD xdebug_php72 /tmp/xdebug_php72
+ADD xdebug_php71 /tmp/xdebug_php71
+ADD xdebug_php70 /tmp/xdebug_php70
 ADD .env /tmp/.env
 
 RUN yum update -y && yum install -y \
@@ -28,44 +31,23 @@ autoconf \
 wget \
 yum \
 git \
+httpd24-devel \
 && yum clean all
 
 #Install Mysql server & client
 RUN source /tmp/.env && \
 yum -y install $mysql $mysql-server
 
-#Install Apache
+#Install Apache or nginx
 RUN source /tmp/.env && \
-yum -y install $apache $apache-devel
+if [ -z $apache ] ; \
+then yum -y install $nginx ;\
+else yum -y install $apache ; fi
 
-#Install nginx
-RUN source /tmp/.env && \
-yum -y install $nginx
-
-#Install php
+#Install PHP
 RUN source /tmp/.env && \
 if [ $php = php72 ] ; \
-then yum -y install php71 libzip libzip-devel \
-&& wget -O php-7.2.4.tar.gz http://jp2.php.net/get/php-7.2.4.tar.gz/from/this/mirror \
-&& tar -xzpvf php-7.2.4.tar.gz \
-&& cd php-7.2.4 \
-&& ./configure --with-apxs2=/usr/bin/apxs --with-zlib-dir --with-zlib --enable-mysqlnd --enable-mbstring --with-pdo-mysql --with-mysqli --with-mysql-sock=/var/run/mysqld/mysqld.sock --with-curl=/usr/bin/curl --with-openssl \
-&& make \
-&& make install \
-&& cp php.ini-production /usr/local/lib/php.ini \
-&& mv /usr/bin/php /usr/bin/php.bk \
-&& ln -s /usr/local/bin/php /usr/bin/php \
-&& cd .. \
-&& wget http://pecl.php.net/get/zip-1.13.5.tgz \
-&& tar -xzpvf zip-1.13.5.tgz \
-&& cd zip-1.13.5 \
-&& phpize \
-&& ./configure \
-&& make \
-&& make install \
-&& echo "extension=zip.so" >> /usr/local/lib/php.ini \
-&& cp /tmp/10-php.conf /etc/httpd/conf.modules.d/10-php.conf \
-&& cp /tmp/php.conf /etc/httpd/conf.d/php.conf ; \
+then /bin/bash /tmp/php72 ; \
 else yum -y install $php* ; fi
 
 # Install Composer
@@ -74,35 +56,11 @@ RUN cd .. && /usr/bin/curl -sS https://getcomposer.org/installer | /usr/bin/php 
 # Install Xdebug 2.6
 RUN source /tmp/.env && \
 if [ $php = php72 ] ; \
-then cd .. \
-&& wget http://xdebug.org/files/xdebug-2.6.0.tgz \
-&& tar -xzpvf xdebug-2.6.0.tgz \
-&& cd xdebug-2.6.0 \
-&& phpize \
-&& ./configure \
-&& make \
-&& cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
-&& echo "zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so" >> /usr/local/lib/php.ini; \
+then /bin/bash /tmp/xdebug_php72 ;\
 elif [ $php = php71 ] ; \
-then cd .. \
-&& wget http://xdebug.org/files/xdebug-2.6.0.tgz \
-&& tar -xzpvf xdebug-2.6.0.tgz \
-&& cd xdebug-2.6.0 \
-&& phpize \
-&& ./configure \
-&& make \
-&& cp modules/xdebug.so /usr/lib64/php/7.1/modules \
-&& echo "zend_extension = /usr/lib64/php/7.1/modules/xdebug.so" >> /etc/php.ini; \
+then /bin/bash /tmp/xdebug_php71 ;\
 elif [ $php = php70 ] ; \
-then cd .. \
-&& wget http://xdebug.org/files/xdebug-2.6.0.tgz \
-&& tar -xzpvf xdebug-2.6.0.tgz \
-&& cd xdebug-2.6.0 \
-&& phpize \
-&& ./configure \
-&& make \
-&& cp modules/xdebug.so /usr/lib64/php/7.0/modules \
-&& echo "zend_extension = /usr/lib64/php/7.0/modules/xdebug.so" >> /etc/php.ini; \
+then /bin/bash /tmp/xdebug_php70 ;\
 else echo "Xdebug 2.6 isn't supported on php5 " ; fi
 
 EXPOSE 80
@@ -117,6 +75,3 @@ rm /tmp/server-config.sh && \
 rm /tmp/create-env.sh
 
 CMD /usr/bin/env bash start-servers;sleep infinity
-
-
-

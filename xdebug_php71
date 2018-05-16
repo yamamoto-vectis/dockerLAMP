@@ -1,0 +1,9 @@
+#!/bin/bash
+wget http://xdebug.org/files/xdebug-2.6.0.tgz
+tar -xzpvf xdebug-2.6.0.tgz
+cd xdebug-2.6.0
+phpize
+./configure
+make && \
+cp modules/xdebug.so /usr/lib64/php/7.1/modules && \
+echo "zend_extension = /usr/lib64/php/7.1/modules/xdebug.so" >> /etc/php.ini

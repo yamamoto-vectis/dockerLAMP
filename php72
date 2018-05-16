@@ -1,0 +1,34 @@
+#!/bin/bash
+wget -O php-7.2.5.tar.gz http://jp2.php.net/get/php-7.2.5.tar.gz/from/this/mirror
+tar -zxvf php-7.2.5.tar.gz
+
+cd php-7.2.5
+
+./configure \
+--with-apxs2=/usr/bin/apxs \
+--with-zlib-dir \
+--with-zlib \
+--enable-mysqlnd \
+--enable-mbstring \
+--with-pdo-mysql \
+--with-mysqli \
+--with-mysql-sock=/var/run/mysqld/mysqld.sock \
+--with-curl=/usr/bin/curl \
+--with-openssl
+make && \
+make install && \
+cp php.ini-production /usr/local/lib/php.ini
+cd .. 
+ln -s /usr/local/bin/php /usr/bin/php
+
+echo "Install zip module"
+wget http://pecl.php.net/get/zip-1.13.5.tgz 
+tar -xzpvf zip-1.13.5.tgz 
+cd zip-1.13.5
+phpize 
+./configure && \
+make && \
+make install && \
+echo "extension=zip.so" >> /usr/local/lib/php.ini && \
+cp /tmp/10-php.conf /etc/httpd/conf.modules.d/10-php.conf && \
+cp /tmp/php.conf /etc/httpd/conf.d/php.conf

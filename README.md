@@ -53,5 +53,5 @@ docker exec -ti -u ec2-user newbiz bash
 ### Use built Image from DockerHub
 You can use the Image built by DockerHub:
 ```
-docker pull duyho/docker_basic
+docker pull duyho/dockerLAMP
 ```

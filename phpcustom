@@ -1,0 +1,11 @@
+#!/bin/bash
+yum -y install gcc-c++ make automake bison flex libtool libstdc++-devel libjpeg-turbo-devel libpng-devel freetype-devel libmcrypt-devel libxslt-devel
+wget -O php-5.6.35.tar.gz http://au1.php.net/get/php-5.6.35.tar.gz/from/this/mirror
+tar -zxpvf php-5.6.35.tar.gz && \
+cd php-5.6.35 && \
+./configure --with-apxs2=/usr/bin/apxs --with-mysql --with-mysqli --with-pdo-mysql --enable-soap --with-gd --with-curl --enable-zip --with-zlib --enable-mbstring --with-mcrypt=/usr/local/lib --with-xsl --with-openssl --enable-ftp --enable-exif
+make && make install
+cp php.ini-production /usr/local/lib/php.ini
+ln -s /usr/local/bin/php /usr/bin/php
+cp /tmp/5-php.conf /etc/httpd/conf.d/5-php.conf
+

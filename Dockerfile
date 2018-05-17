@@ -20,6 +20,8 @@ ADD xdebug_php72 /tmp/xdebug_php72
 ADD xdebug_php71 /tmp/xdebug_php71
 ADD xdebug_php70 /tmp/xdebug_php70
 ADD .env /tmp/.env
+ADD 5-php.conf /tmp/5-php.conf
+ADD phpcustom /tmp/phpcustom
 
 RUN yum update -y && yum install -y \
 sudo \

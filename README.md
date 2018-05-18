@@ -23,13 +23,11 @@ There is enviroment file named .env in the repo to define which version of Apach
 #mysql (value to add: mysql55, mysql56, mysql57)
 mysql=mysql57
 #apache (value to add: httpd24)
-apache=httpd24
+apache=
 #nginx (value to add: nginx)
-nginx=
-#php (value to add: php56, php70, php71, php72)
+nginx=nginx
+#php (value to add: php56, php70, php71, php72, phpcustom)
 php=php72
-
-
 ```
 Navigate to directory containing docker file. If downloading from Docker Hub, move on to "Create Container" section.
 ```

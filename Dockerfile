@@ -9,19 +9,19 @@ MAINTAINER DuyHo
 
 ################## BEGIN INSTALLATION ######################
 
-ADD create-user.sh /tmp/create-user.sh
-ADD server-config.sh /tmp/server-config.sh
-ADD 10-php.conf /tmp/10-php.conf
-ADD php.conf /tmp/php.conf
-ADD create-env.sh /tmp/create-env.sh
-ADD start-servers.sh /usr/sbin/start-servers
-ADD php72 /tmp/php72
-ADD xdebug_php72 /tmp/xdebug_php72
-ADD xdebug_php71 /tmp/xdebug_php71
-ADD xdebug_php70 /tmp/xdebug_php70
+ADD sh/create-user.sh /tmp/create-user.sh
+ADD sh/server-config.sh /tmp/server-config.sh
+ADD php/10-php.conf /tmp/10-php.conf
+ADD php/php.conf /tmp/php.conf
+ADD sh/create-env.sh /tmp/create-env.sh
+ADD sh/start-servers.sh /usr/sbin/start-servers
+ADD php/php72 /tmp/php72
+ADD xdebug/xdebug_php72 /tmp/xdebug_php72
+ADD xdebug/xdebug_php71 /tmp/xdebug_php71
+ADD xdebug/xdebug_php70 /tmp/xdebug_php70
 ADD .env /tmp/.env
-ADD 5-php.conf /tmp/5-php.conf
-ADD phpcustom /tmp/phpcustom
+ADD php/5-php.conf /tmp/5-php.conf
+ADD php/phpcustom /tmp/phpcustom
 
 RUN yum update -y && yum install -y \
 sudo \
@@ -34,6 +34,8 @@ wget \
 yum \
 git \
 httpd24-devel \
+diffutils \
+re2c \
 && yum clean all
 
 #Install Mysql server & client
@@ -48,8 +50,8 @@ else yum -y install $apache ; fi
 
 #Install PHP
 RUN source /tmp/.env && \
-if [ $php = php72 ] ; \
-then /bin/bash /tmp/php72 ; \
+if [ $php = php72 ] || [ $php = phpcustom ]; \
+then /bin/bash /tmp/$php ; \
 else yum -y install $php* ; fi
 
 # Install Composer
@@ -63,7 +65,7 @@ elif [ $php = php71 ] ; \
 then /bin/bash /tmp/xdebug_php71 ;\
 elif [ $php = php70 ] ; \
 then /bin/bash /tmp/xdebug_php70 ;\
-else echo "Xdebug 2.6 isn't supported on php5 " ; fi
+else echo "Xdebug not installed" ; fi
 
 EXPOSE 80
 EXPOSE 443

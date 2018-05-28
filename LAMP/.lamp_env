@@ -3,9 +3,9 @@
 #mysql (value to add: mysql55, mysql56, mysql57)
 mysql=mysql57
 #apache (value to add: httpd24)
-apache=
+apache=httpd24
 #nginx (value to add: nginx)
-nginx=nginx
+nginx=
 #php (value to add: php56, php70, php71, php72, phpcustom)
-php=php72
+php=php71
 

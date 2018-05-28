@@ -19,7 +19,7 @@ ADD php/php72 /tmp/php72
 ADD xdebug/xdebug_php72 /tmp/xdebug_php72
 ADD xdebug/xdebug_php71 /tmp/xdebug_php71
 ADD xdebug/xdebug_php70 /tmp/xdebug_php70
-ADD .env /tmp/.env
+ADD .lamp_env /tmp/.env
 ADD php/5-php.conf /tmp/5-php.conf
 ADD php/phpcustom /tmp/phpcustom
 

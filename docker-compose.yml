@@ -1,0 +1,10 @@
+dockerlamp:
+  build: ./LAMP
+  dockerfile: 'Dockerfile'
+
+githook_installer:
+  build: ./hookinstaller
+  dockerfile: 'Dockerfile'
+  volumes:
+    - ./hookinstaller/hooks:/tmp/hooks
+    - ./.git/hooks:/tmp/proj  

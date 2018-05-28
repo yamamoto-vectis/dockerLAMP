@@ -1,7 +1,8 @@
 dockerlamp:
   build: ./LAMP
   dockerfile: 'Dockerfile'
-
+  volumes:
+    - ./:/var/www/html
 githook_installer:
   build: ./hookinstaller
   dockerfile: 'Dockerfile'

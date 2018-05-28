@@ -17,7 +17,7 @@ This container is recommended for development use, to mirror or mimic developmen
 
 ### Build Image
 There are 2 images will be built: a LAMP image and hookinstaller image, please refer README file of each image for more details
-
+There is an environment file setup for LAMP image, please modify it as your need before build image.
 Navigate to directory containing docker-compose file. If downloading from Docker Hub, move on to "Create Container" section.
 ```
 docker-compose up -d

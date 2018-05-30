@@ -4,6 +4,10 @@ services:
     build: ./LAMP
     volumes:
       - .:/var/www/html
+    ports:
+      - 80:80
+      - 443:443
+      - 3306:3306
 
   githook_installer:
     build: ./hookinstaller

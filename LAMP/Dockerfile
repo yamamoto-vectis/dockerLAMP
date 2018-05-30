@@ -67,10 +67,6 @@ elif [ $php = php70 ] ; \
 then /bin/bash /tmp/xdebug_php70 ;\
 else echo "Xdebug not installed" ; fi
 
-EXPOSE 80
-EXPOSE 443
-EXPOSE 3306
-
 RUN /bin/bash /tmp/create-user.sh && \
 rm /tmp/create-user.sh && \
 /bin/bash /tmp/server-config.sh && \

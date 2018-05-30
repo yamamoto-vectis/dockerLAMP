@@ -50,8 +50,5 @@ docker exec -ti --privileged alamp mysql_secure_installation
 docker exec -ti -u ec2-user alamp bash
 ```
 
-### Use built Image from DockerHub
-You can use the Image built by DockerHub:
-```
-docker pull duyho/dockerLAMP
+
 ```

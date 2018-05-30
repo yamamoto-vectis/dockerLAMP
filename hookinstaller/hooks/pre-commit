@@ -1,14 +1,37 @@
-#!/bin/bash
-# Lunatic pre-commit hook
-echo 'pre-commit hook starting'
-
-FLIP=$(($(($RANDOM%10))%2))
-
-if [ $FLIP -eq 1 ]
+#!/bin/sh
+if git rev-parse --verify HEAD >/dev/null 2>&1
 then
-  echo 'Okay, I will accept your commit'
-  exit 0
+    against=HEAD
 else
-  echo 'Meh. Maybe another time'
-  exit 1
+    # Initial commit: diff against an empty tree object
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
+# Redirect output to stderr.
+exec 1>&2
+
+CONTAINER=`docker-compose ps | grep toolbox | cut -d ' ' -f1`
+IS_ERROR=0
+for FILE in `git diff-index --name-status $against -- | grep -E '^[AUM].*\.php$'| cut -c3-`; do
+    # syntacs check
+    if php -l $FILE; then
+        # phpcs
+        if ! docker exec -t $CONTAINER phpcs --standard=PSR2 /mnt/src/$FILE; then
+            IS_ERROR=1
+        fi
+
+        # phpmd
+        if ! docker exec -t $CONTAINER phpmd /mnt/src/$FILE text unusedcode,codesize,naming; then
+            IS_ERROR=1
+        fi
+    else
+        IS_ERROR=1
+    fi
+done
+
+for FILE in `git diff-index --name-status $against -- | grep -E '^[AUM].*\.js$'| cut -c3-`; do
+    if ! docker exec -t $CONTAINER /var/tmp/node_modules/.bin/eslint /mnt/src/$FILE; then
+        IS_ERROR=1
+    fi
+done
+
+exit $IS_ERROR

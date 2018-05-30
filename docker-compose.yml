@@ -3,7 +3,7 @@ services:
   dockerlamp:
     build: ./LAMP
     volumes:
-      - ./:/var/www/html
+      - .:/var/www/html
 
   githook_installer:
     build: ./hookinstaller
@@ -11,9 +11,16 @@ services:
       - ./hookinstaller/hooks:/tmp/hooks
       - ./.git/hooks:/tmp/proj
 
+  toolbox:
+    build: ./toolbox
+    volumes:
+      - .:/mnt/src
+    command: /sbin/init
+
   phan:
     image: cloudflare/phan
     volumes:
       - .:/mnt/src:cached
     entrypoint: []
     command: sh -c "cd /mnt/src && /opt/phan/phan -xpo analysis.txt --color"
+

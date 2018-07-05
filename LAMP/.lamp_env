@@ -7,5 +7,5 @@ apache=httpd24
 #nginx (value to add: nginx)
 nginx=
 #php (value to add: php56, php70, php71, php72, phpcustom)
-php=php71
+php=php72
 

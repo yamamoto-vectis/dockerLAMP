@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 service httpd stop
-service mysqld stop
+#service mysqld stop
 
 if [ -e /var/run/httpd/httpd.pid ]
 then
@@ -21,7 +21,7 @@ fi
 
 rm -f /var/run/httpd/*
 rm -f /tmp/*
-chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
+#chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 
 service httpd start
-service mysqld start
+#service mysqld start

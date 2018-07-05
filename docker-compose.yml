@@ -7,7 +7,19 @@ services:
     ports:
       - 80:80
       - 443:443
+  
+  dbserver:
+    image: mysql:5.7
+    ports:
       - 3306:3306
+    hostname: dbserver
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: lftv
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_local_data:/var/lib/mysql
 
   githook_installer:
     build: ./hookinstaller
@@ -27,4 +39,7 @@ services:
       - .:/mnt/src:cached
     entrypoint: []
     command: sh -c "cd /mnt/src && /opt/phan/phan -xpo analysis.txt --color"
+volumes:
+  db_local_data:
+    driver: local
 

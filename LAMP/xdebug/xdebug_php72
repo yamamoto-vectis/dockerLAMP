@@ -5,5 +5,5 @@ cd xdebug-2.6.0
 phpize
 ./configure
 make && \
-cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718 && \
-echo "zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so" >> /usr/local/lib/php.ini
+cp modules/xdebug.so /usr/lib64/php/7.2/modules && \
+echo "zend_extension = /usr/lib64/php/7.2/modules/xdebug.so" >> /etc/php.ini

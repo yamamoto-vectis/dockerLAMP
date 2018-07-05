@@ -40,7 +40,7 @@ re2c \
 
 #Install Mysql server & client
 RUN source /tmp/.env && \
-yum -y install $mysql $mysql-server
+yum -y install $mysql
 
 #Install Apache or nginx
 RUN source /tmp/.env && \
@@ -50,7 +50,7 @@ else yum -y install $apache ; fi
 
 #Install PHP
 RUN source /tmp/.env && \
-if [ $php = php72 ] || [ $php = phpcustom ]; \
+if [ $php = phpcustom ]; \
 then /bin/bash /tmp/$php ; \
 else yum -y install $php* ; fi
 

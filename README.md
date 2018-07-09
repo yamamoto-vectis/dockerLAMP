@@ -34,13 +34,13 @@ docker-compose ps
 ```
 The result should be:
 ```
-             Name                           Command               State                                 Ports
--------------------------------------------------------------------------------------------------------------------------------------------
-8bd9ecc41c4e        mysql:5.7                      "docker-entrypoint.s…"    48 seconds ago      Up 38 seconds               0.0.0.0:3306->3306/tcp                     dockerlamp_dbserver_1
-565626ab8a88        dockerlamp_dockerlamp          "/bin/sh -c '/usr/bi…"    48 seconds ago      Up 7 seconds                0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   dockerlamp_dockerlamp_1
-fe9d7dae957a        dockerlamp_toolbox             "/sbin/init"              48 seconds ago      Up 38 seconds                                                          dockerlamp_toolbox_1
-28c91107d6a7        dockerlamp_githook_installer   "/bin/sh -c 'sh -c \"…"   48 seconds ago      Exited (0) 9 seconds ago                                               dockerlamp_githook_installer_1
-9abde92e90c5        cloudflare/phan                "sh -c 'cd /mnt/src …"    48 seconds ago      Exited (0) 8 seconds ago                                               dockerlamp_phan_1
+CONTAINER ID        IMAGE                          COMMAND                   CREATED             STATUS                      PORTS                                      NAMES
+8bd9ecc41c4e        mysql:5.7                      "docker-entrypoint.s…"    9 minutes ago       Up 9 minutes                0.0.0.0:3306->3306/tcp                     dockerlamp_dbserver_1
+565626ab8a88        dockerlamp_dockerlamp          "/bin/sh -c '/usr/bi…"    9 minutes ago       Up 8 minutes                0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   dockerlamp_dockerlamp_1
+fe9d7dae957a        dockerlamp_toolbox             "/sbin/init"              9 minutes ago       Up 9 minutes                                                           dockerlamp_toolbox_1
+28c91107d6a7        dockerlamp_githook_installer   "/bin/sh -c 'sh -c \"…"   9 minutes ago       Exited (0) 9 minutes ago                                               dockerlamp_githook_installer_1
+9abde92e90c5        cloudflare/phan                "sh -c 'cd /mnt/src …"    9 minutes ago       Exited (0) 8 minutes ago                                               dockerlamp_phan_1
+
 
 ```
 ### Login to container

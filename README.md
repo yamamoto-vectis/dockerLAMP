@@ -48,7 +48,11 @@ fe9d7dae957a        dockerlamp_toolbox             "/sbin/init"              48 
 docker exec -ti dockerlamp_dockerlamp_1 bash
 ```
 ### Working with MySQL
-By default, the root user is lftv and the db service is dbserver. Run the following comand to connect to DB
+By default, the root user is lftv and the db service is dbserver. Run the following command to connect to DB 
+```
+docker exec -ti dockerlamp_dbserver_1 mysql -u lftv -p
+```
+Run the following command to connect DB from dockerlamp_dockerlamp_1
 ```
 mysql -h dbserver -u lftv -p
 ```

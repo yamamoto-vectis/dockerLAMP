@@ -4,7 +4,7 @@
 ############################################################
 
 # Set the base image to AmazonLinux
-FROM amazonlinux:latest
+FROM amazonlinux:2018.03
 MAINTAINER DuyHo
 
 ################## BEGIN INSTALLATION ######################

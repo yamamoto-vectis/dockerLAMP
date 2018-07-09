@@ -37,18 +37,14 @@ docker build -t imageName .
 You will most likely want to develop on your local machine. Create your directory structure on your local machine and figure out where you want your web root to reside. Update the -v ~/www:/var/www/html with the path to your working directory. You can obviously change this to include multiple filepath mappings, where needed.
 ```
 # Custom Image Build
-docker run -ti --name alamp -p 80:80 -p 443:443 -p 3306:3306  -v ~/www:/var/www/html -d imagesName
-```
-
-### Working with MySQL
-By default, the root user doesn't have a password. Run the following to set the root user password.
-```
-docker exec -ti --privileged alamp mysql_secure_installation
+docker run -ti --name alamp -p 80:80 -p 443:443 -v ~/www:/var/www/html -d imagesName
 ```
 ### Login as ec2-user
 ```
 docker exec -ti -u ec2-user alamp bash
 ```
-
-
+### Working with MySQL
+By default, the root user is lftv and the db service is dbserver. Run the following comand to connect to DB
+```
+mysql -h dbserver -u lftv -p
 ```

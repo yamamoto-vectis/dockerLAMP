@@ -30,7 +30,7 @@ docker-compose up -d
 ### List Container
 Run the following command:
 ```
-docker-compose ps
+docker ps -a
 ```
 The result should be:
 ```

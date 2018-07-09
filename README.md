@@ -36,13 +36,19 @@ The result should be:
 ```
              Name                           Command               State                                 Ports
 -------------------------------------------------------------------------------------------------------------------------------------------
-bananabanana_dockerlamp_1          /bin/sh -c /usr/bin/env ba ...   Up       0.0.0.0:3306->3306/tcp, 0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
-bananabanana_githook_installer_1   /bin/sh -c sh -c "cd /tmp/ ...   Exit 0
-bananabanana_phan_1                sh -c cd /mnt/src && /opt/ ...   Exit 0
-bananabanana_toolbox_1             /sbin/init                       Up
+8bd9ecc41c4e        mysql:5.7                      "docker-entrypoint.s…"    48 seconds ago      Up 38 seconds               0.0.0.0:3306->3306/tcp                     dockerlamp_dbserver_1
+565626ab8a88        dockerlamp_dockerlamp          "/bin/sh -c '/usr/bi…"    48 seconds ago      Up 7 seconds                0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   dockerlamp_dockerlamp_1
+fe9d7dae957a        dockerlamp_toolbox             "/sbin/init"              48 seconds ago      Up 38 seconds                                                          dockerlamp_toolbox_1
+28c91107d6a7        dockerlamp_githook_installer   "/bin/sh -c 'sh -c \"…"   48 seconds ago      Exited (0) 9 seconds ago                                               dockerlamp_githook_installer_1
+9abde92e90c5        cloudflare/phan                "sh -c 'cd /mnt/src …"    48 seconds ago      Exited (0) 8 seconds ago                                               dockerlamp_phan_1
+
 ```
 ### Login to container
 ```
-docker exec -ti bananabanana_dockerlamp_1 bash
+docker exec -ti dockerlamp_dockerlamp_1 bash
 ```
-
+### Working with MySQL
+By default, the root user is lftv and the db service is dbserver. Run the following comand to connect to DB
+```
+mysql -h dbserver -u lftv -p
+```

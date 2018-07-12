@@ -30,16 +30,17 @@ docker-compose up -d
 ### List Container
 Run the following command:
 ```
-docker ps -a
+docker-compose ps
 ```
 The result should be:
 ```
-CONTAINER ID        IMAGE                          COMMAND                   CREATED             STATUS                      PORTS                                      NAMES
-8bd9ecc41c4e        mysql:5.7                      "docker-entrypoint.s…"    9 minutes ago       Up 9 minutes                0.0.0.0:3306->3306/tcp                     dockerlamp_dbserver_1
-565626ab8a88        dockerlamp_dockerlamp          "/bin/sh -c '/usr/bi…"    9 minutes ago       Up 8 minutes                0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   dockerlamp_dockerlamp_1
-fe9d7dae957a        dockerlamp_toolbox             "/sbin/init"              9 minutes ago       Up 9 minutes                                                           dockerlamp_toolbox_1
-28c91107d6a7        dockerlamp_githook_installer   "/bin/sh -c 'sh -c \"…"   9 minutes ago       Exited (0) 9 minutes ago                                               dockerlamp_githook_installer_1
-9abde92e90c5        cloudflare/phan                "sh -c 'cd /mnt/src …"    9 minutes ago       Exited (0) 8 minutes ago                                               dockerlamp_phan_1
+             Name                           Command               State                     Ports
+-------------------------------------------------------------------------------------------------------------------
+dockerlamp_dbserver_1            docker-entrypoint.sh mysqld      Up       0.0.0.0:3306->3306/tcp
+dockerlamp_dockerlamp_1          /bin/sh -c /usr/bin/env ba ...   Up       0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
+dockerlamp_githook_installer_1   /bin/sh -c sh -c "cd /tmp/ ...   Exit 0
+dockerlamp_phan_1                sh -c cd /mnt/src && /opt/ ...   Exit 0
+dockerlamp_toolbox_1             /sbin/init                       Up
 
 
 ```
